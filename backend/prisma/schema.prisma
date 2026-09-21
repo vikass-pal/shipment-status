@@ -1,0 +1,35 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Shipment {
+  id                   String                  @id @default(uuid())
+  referenceNumber      String                  @unique
+  origin               String
+  destination          String
+  currentStatus        String                  @default("BOOKED")
+  expectedDeliveryDate DateTime
+  createdAt            DateTime                @default(now())
+  updatedAt            DateTime                @updatedAt
+  statusHistory        ShipmentStatusHistory[]
+
+  @@index([referenceNumber])
+  @@index([currentStatus])
+}
+
+model ShipmentStatusHistory {
+  id             String    @id @default(uuid())
+  shipmentId     String
+  shipment       Shipment  @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  previousStatus String?
+  newStatus      String
+  notes          String?
+  createdAt      DateTime  @default(now())
+
+  @@index([shipmentId])
+}
