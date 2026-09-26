@@ -110,7 +110,7 @@ export const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-sky-500 selection:text-white">
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col selection:bg-sky-500 selection:text-white">
       {/* Navigation Bar */}
       <Navbar
         onOpenCreateModal={() => setIsCreateModalOpen(true)}
@@ -123,15 +123,15 @@ export const Dashboard: React.FC = () => {
         {/* Header Title Section */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+            <h1 className="text-2xl font-black tracking-tight text-slate-900 flex items-center gap-2">
               Logistics Dashboard
               {stats && (
-                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400">
+                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-600">
                   {stats.total} total
                 </span>
               )}
             </h1>
-            <p className="text-sm text-slate-400 mt-1">
+            <p className="text-sm font-semibold text-slate-500 mt-1">
               Real-time shipment tracking, status progression, and audit logs.
             </p>
           </div>
@@ -139,7 +139,7 @@ export const Dashboard: React.FC = () => {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setIsCreateModalOpen(true)}
-              className="sm:hidden flex items-center gap-2 w-full justify-center px-4 py-2.5 rounded-xl bg-sky-600 text-white font-semibold text-sm shadow-md"
+              className="sm:hidden flex items-center gap-2 w-full justify-center px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-semibold text-sm shadow-sm"
             >
               <Plus className="w-4 h-4" />
               <span>New Shipment</span>
@@ -157,14 +157,14 @@ export const Dashboard: React.FC = () => {
 
         {/* Error Banner */}
         {error && (
-          <div className="mb-6 p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-400 flex items-center justify-between gap-4">
+          <div className="mb-6 p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <AlertCircle className="w-5 h-5 shrink-0" />
-              <p className="text-sm font-medium">{error}</p>
+              <p className="text-sm font-semibold">{error}</p>
             </div>
             <button
               onClick={() => fetchData(true)}
-              className="px-3 py-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-xs font-semibold transition-colors flex items-center gap-1.5"
+              className="px-3 py-1.5 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-800 text-xs font-bold transition-colors flex items-center gap-1.5"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               <span>Retry</span>
@@ -173,10 +173,10 @@ export const Dashboard: React.FC = () => {
         )}
 
         {/* Search & Filter Toolbar */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 mb-6 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 mb-6 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
           {/* Reference Search Box */}
           <div className="relative w-full sm:w-80">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
               <Search className="w-4 h-4" />
             </div>
             <input
@@ -184,12 +184,12 @@ export const Dashboard: React.FC = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search reference number..."
-              className="w-full pl-10 pr-9 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all"
+              className="w-full pl-10 pr-9 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm font-medium placeholder-slate-400 focus:bg-white focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100 transition-all"
             />
             {searchTerm && (
               <button
                 onClick={() => setSearchTerm('')}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-500 hover:text-slate-300"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -199,13 +199,13 @@ export const Dashboard: React.FC = () => {
           {/* Filter Dropdown & Clear */}
           <div className="flex items-center gap-3 w-full sm:w-auto">
             <div className="relative w-full sm:w-48">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
                 <Filter className="w-3.5 h-3.5" />
               </div>
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value as ShipmentStatus | '')}
-                className="w-full pl-9 pr-8 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all appearance-none cursor-pointer"
+                className="w-full pl-9 pr-8 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm font-medium focus:bg-white focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-100 transition-all appearance-none cursor-pointer"
               >
                 <option value="">All Statuses</option>
                 {(Object.keys(STATUS_CONFIG) as ShipmentStatus[]).map((st) => (
@@ -219,7 +219,7 @@ export const Dashboard: React.FC = () => {
             {hasActiveFilters && (
               <button
                 onClick={clearFilters}
-                className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-400 hover:text-white text-xs font-semibold border border-slate-700 transition-colors whitespace-nowrap"
+                className="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 text-xs font-bold border border-slate-300 transition-colors whitespace-nowrap"
               >
                 Clear
               </button>
@@ -237,7 +237,7 @@ export const Dashboard: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-900 bg-slate-950 py-6 text-center text-xs text-slate-400">
+      <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs font-semibold text-slate-500">
         <p>LogiTrack • Shipment Status Tracker System</p>
       </footer>
 
