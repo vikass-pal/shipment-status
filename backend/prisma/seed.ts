@@ -1,10 +1,9 @@
-import { PrismaClient } from '@prisma/client';
-import { ShipmentStatus } from '../src/types/shipment';
+import { PrismaClient, ShipmentStatus } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('🌱 Seeding database with sample shipment records...');
+  console.log('🌱 Seeding Neon PostgreSQL database with sample shipment records...');
 
   // Clear existing records safely
   await prisma.shipmentStatusHistory.deleteMany();
@@ -237,7 +236,7 @@ async function main() {
     ],
   });
 
-  console.log('✅ Seed completed successfully! Created 6 realistic shipments with complete status histories.');
+  console.log('✅ Seed completed successfully on Neon PostgreSQL! Created 6 realistic shipments.');
 }
 
 main()

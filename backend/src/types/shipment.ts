@@ -1,9 +1,4 @@
-export enum ShipmentStatus {
-  BOOKED = 'BOOKED',
-  IN_TRANSIT = 'IN_TRANSIT',
-  CUSTOMS_HOLD = 'CUSTOMS_HOLD',
-  OUT_FOR_DELIVERY = 'OUT_FOR_DELIVERY',
-  DELIVERED = 'DELIVERED',
-}
+import { ShipmentStatus } from '@prisma/client';
 
+export { ShipmentStatus };
 export type ShipmentStatusType = keyof typeof ShipmentStatus;

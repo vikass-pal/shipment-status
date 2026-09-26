@@ -1,5 +1,5 @@
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -7,12 +7,20 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum ShipmentStatus {
+  BOOKED
+  IN_TRANSIT
+  CUSTOMS_HOLD
+  OUT_FOR_DELIVERY
+  DELIVERED
+}
+
 model Shipment {
   id                   String                  @id @default(uuid())
   referenceNumber      String                  @unique
   origin               String
   destination          String
-  currentStatus        String                  @default("BOOKED")
+  currentStatus        ShipmentStatus          @default(BOOKED)
   expectedDeliveryDate DateTime
   createdAt            DateTime                @default(now())
   updatedAt            DateTime                @updatedAt
@@ -23,13 +31,13 @@ model Shipment {
 }
 
 model ShipmentStatusHistory {
-  id             String    @id @default(uuid())
+  id             String          @id @default(uuid())
   shipmentId     String
-  shipment       Shipment  @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
-  previousStatus String?
-  newStatus      String
+  shipment       Shipment        @relation(fields: [shipmentId], references: [id], onDelete: Cascade)
+  previousStatus ShipmentStatus?
+  newStatus      ShipmentStatus
   notes          String?
-  createdAt      DateTime  @default(now())
+  createdAt      DateTime        @default(now())
 
   @@index([shipmentId])
 }
