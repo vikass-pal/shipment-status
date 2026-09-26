@@ -36,7 +36,6 @@ export function formatDateOnly(dateString: string): string {
 export function getRelativeDeliveryInfo(dateString: string): { label: string; isOverdue: boolean } {
   if (!dateString) return { label: 'Date pending', isOverdue: false };
   const target = new Date(dateString);
-  const now = new Date();
 
   // Reset hours for day comparison
   target.setHours(0, 0, 0, 0);
